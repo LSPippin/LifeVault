@@ -8,21 +8,13 @@
 <div class="dashboard">
 
   <div class="dashboard__welcome">
-    <h2>Welcome back, {{ user.first_name|default:user.username }} 👋</h2>
+    <h2>Welcome back, {{ request.user.first_name|default:request.user.username }} 👋</h2>
     <p>Here's an overview of your vault.</p>
-  </div>
-
-  <div class="dashboard__alerts">
-    <div class="alert-empty">
-      <span class="alert-empty__icon">🔔</span>
-      <span>No alerts right now — you're all caught up.</span>
-    </div>
   </div>
 
   <section class="dashboard__section">
     <div class="section-header">
       <h3 class="section-title">Your Categories</h3>
-      <span class="section-hint">Select a category to add or view records</span>
     </div>
     <div class="category-grid">
       {% for category in categories %}
@@ -31,13 +23,13 @@
         <div class="category-card__body">
           <div class="category-card__name">{{ category.name }}</div>
           <div class="category-card__count">
-            {% if category.count == 0 %}No records yet
-            {% elif category.count == 1 %}1 record
-            {% else %}{{ category.count }} records{% endif %}
+            {{ category.record_set.count }} record{{ category.record_set.count|pluralize }}
           </div>
         </div>
         <div class="category-card__arrow">→</div>
       </a>
+      {% empty %}
+      <p>No categories yet. Add one from the admin panel.</p>
       {% endfor %}
     </div>
   </section>
@@ -46,11 +38,22 @@
     <div class="section-header">
       <h3 class="section-title">Recent Activity</h3>
     </div>
+    {% if recent_records %}
+    <div class="records-list">
+      {% for record in recent_records %}
+      <div class="record-item">
+        <div class="record-item__title">{{ record.title }}</div>
+        <div class="record-item__meta">{{ record.category.name }} · {{ record.created_at|date:"M d, Y" }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
     <div class="empty-state">
       <div class="empty-state__icon">📋</div>
       <h4>No records yet</h4>
-      <p>Start by adding your first record to any category above.</p>
+      <p>Start by adding your first record to any category.</p>
     </div>
+    {% endif %}
   </section>
 
 </div>

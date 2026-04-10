@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from vault.models import Category, Record
 
 
 def landing_view(request):
@@ -10,16 +11,13 @@ def landing_view(request):
 
 @login_required
 def dashboard_view(request):
+    categories = Category.objects.filter(user=request.user)
+    recent_records = Record.objects.filter(
+        user=request.user
+    ).order_by('-created_at')[:5]
+
     context = {
-        'user': request.user,
-        'categories': [
-            {'name': 'Health', 'icon': '🏥', 'slug': 'health', 'count': 0},
-            {'name': 'Insurance', 'icon': '🛡️', 'slug': 'insurance', 'count': 0},
-            {'name': 'Home & Maintenance', 'icon': '🏠', 'slug': 'home', 'count': 0},
-            {'name': 'Vehicles', 'icon': '🚗', 'slug': 'vehicles', 'count': 0},
-            {'name': 'Financial & Tax', 'icon': '💰', 'slug': 'financial', 'count': 0},
-            {'name': 'Pets', 'icon': '🐾', 'slug': 'pets', 'count': 0},
-            {'name': 'Vendors & Services', 'icon': '🔧', 'slug': 'vendors', 'count': 0},
-        ],
+        'categories': categories,
+        'recent_records': recent_records,
     }
     return render(request, 'core/dashboard.html', context)
