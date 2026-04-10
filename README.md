@@ -76,25 +76,3 @@ lifevault/
 └── .env.example
 ```
 
----
-
-## Sprint Progress
-
-### ✅ Sprint 1 — Foundation
-- [x] Django project setup
-- [x] PostgreSQL connection
-- [x] User registration & login
-- [x] Protected dashboard route
-- [x] Base templates & design system
-- [x] Landing page
-
-### 🔜 Sprint 2 — Data Models
-- [ ] Categories, Records, Tags models
-- [ ] Record create / edit / delete
-- [ ] Category pages with live data
-- [ ] Document upload
-
----
-
-## License
-Built as a capstone project.
