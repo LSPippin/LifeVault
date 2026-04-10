@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}LifeVault — Organize Your Life{% endblock %}
+{% block body_class %}landing-page{% endblock %}
+
+{% block body %}
+<div class="landing-wrap">
+  <nav class="landing-nav">
+    <a href="{% url 'landing' %}" class="brand-link">
+      <div class="brand-icon">LV</div>
+      <span class="brand-name">LifeVault</span>
+    </a>
+    <div class="landing-nav__actions">
+      <a href="{% url 'login' %}" class="btn btn--ghost">Sign in</a>
+      <a href="{% url 'register' %}" class="btn btn--primary">Get started</a>
+    </div>
+  </nav>
+
+  <section class="features">
+    <div class="features__grid">
+      <div class="feature-card">
+        <div class="feature-card__icon">🗂️</div>
+        <h3>Organized by category</h3>
+        <p>Health, insurance, home, vehicles, finances, pets, and vendors.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">🔍</div>
+        <h3>Search everything</h3>
+        <p>Find any record instantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">📁</div>
+        <h3>Document storage</h3>
+        <p>Upload, tag, and organize files alongside your records.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">🔔</div>
+        <h3>Reminders & alerts</h3>
+        <p>Never miss a renewal, appointment, or deadline.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="landing-footer">
+    <p>© 2025 LifeVault. Built with purpose.</p>
+  </footer>
+</div>
+{% endblock %}

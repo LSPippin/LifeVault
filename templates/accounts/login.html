@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Sign In — LifeVault{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+
+{% block body %}
+<div class="auth-wrap">
+  <div class="auth-panel">
+    <div class="auth-panel__brand">
+      <a href="{% url 'landing' %}" class="brand-link">
+        <div class="brand-icon">LV</div>
+        <span class="brand-name">LifeVault</span>
+      </a>
+    </div>
+
+    <div class="auth-panel__header">
+      <h1>Welcome back</h1>
+      <p>Sign in to access your vault.</p>
+    </div>
+
+    <form method="POST" action="{% url 'login' %}" class="auth-form">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            {% for error in field.errors %}
+              <span class="form-error">{{ error }}</span>
+            {% endfor %}
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn--primary btn--full">Sign in</button>
+    </form>
+
+    <div class="auth-panel__footer">
+      <p>Don't have an account? <a href="{% url 'register' %}">Create one</a></p>
+    </div>
+  </div>
+
+  <div class="auth-visual">
+    <div class="auth-visual__content">
+      <h2>"Everything important, in one place."</h2>
+      <p>Health records, insurance, home maintenance, and more — organized and ready when you need it.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

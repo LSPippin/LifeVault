@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Create Account — LifeVault{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+
+{% block body %}
+<div class="auth-wrap">
+  <div class="auth-panel">
+    <div class="auth-panel__brand">
+      <a href="{% url 'landing' %}" class="brand-link">
+        <div class="brand-icon">LV</div>
+        <span class="brand-name">LifeVault</span>
+      </a>
+    </div>
+
+    <div class="auth-panel__header">
+      <h1>Create your vault</h1>
+      <p>Free to start. Your data stays yours.</p>
+    </div>
+
+    <form method="POST" action="{% url 'register' %}" class="auth-form">
+      {% csrf_token %}
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="{{ form.first_name.id_for_label }}">First name</label>
+          {{ form.first_name }}
+          {% for error in form.first_name.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="{{ form.last_name.id_for_label }}">Last name</label>
+          {{ form.last_name }}
+          {% for error in form.last_name.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="{{ form.email.id_for_label }}">Email address</label>
+        {{ form.email }}
+        {% for error in form.email.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="{{ form.username.id_for_label }}">Username</label>
+        {{ form.username }}
+        {% for error in form.username.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="{{ form.password1.id_for_label }}">Password</label>
+        {{ form.password1 }}
+        {% for error in form.password1.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="{{ form.password2.id_for_label }}">Confirm password</label>
+        {{ form.password2 }}
+        {% for error in form.password2.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+
+      {% if form.non_field_errors %}
+        <div class="form-errors-global">
+          {% for error in form.non_field_errors %}
+            <span class="form-error">{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <button type="submit" class="btn btn--primary btn--full">Create account</button>
+    </form>
+
+    <div class="auth-panel__footer">
+      <p>Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
+    </div>
+  </div>
+
+  <div class="auth-visual">
+    <div class="auth-visual__content">
+      <h2>Your life, finally organized.</h2>
+      <p>One secure vault for everything: health records, insurance, home maintenance, finances, and more.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
