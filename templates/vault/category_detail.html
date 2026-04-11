@@ -1,0 +1,41 @@
+{% extends "app_shell.html" %}
+
+{% block title %}{{ category.name }} — LifeVault{% endblock %}
+
+{% block page_title %}
+<h1 class="page-title">{{ category.icon }} {{ category.name }}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+
+  <section class="dashboard__section">
+    <div class="section-header">
+      <h3 class="section-title">Records</h3>
+      <a href="{% url 'record_create' category.slug %}" class="btn btn--primary">+ Add Record</a>
+    </div>
+
+    {% if records %}
+    <div class="records-list">
+      {% for record in records %}
+      <div class="record-item">
+        <div class="record-item__title">{{ record.title }}</div>
+        {% if record.notes %}
+        <div class="record-item__notes">{{ record.notes }}</div>
+        {% endif %}
+        <div class="record-item__meta">Added {{ record.created_at|date:"M d, Y" }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state__icon">📋</div>
+      <h4>No records yet</h4>
+      <p>This category is empty. Add your first record.</p>
+    </div>
+    {% endif %}
+
+  </section>
+
+</div>
+{% endblock %}
