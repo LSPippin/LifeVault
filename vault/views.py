@@ -23,7 +23,7 @@ def record_create(request, slug):
     category = get_object_or_404(Category, slug=slug, user=request.user)
 
     if request.method == 'POST':
-        form = RecordForm(request.POST)
+        form = RecordForm(request.POST, request.FILES)
         if form.is_valid():
             record = form.save(commit=False)
             record.user = request.user
@@ -45,7 +45,7 @@ def record_edit(request, pk):
     record = get_object_or_404(Record, pk=pk, user=request.user)
 
     if request.method == 'POST':
-        form = RecordForm(request.POST, instance=record)
+        form = RecordForm(request.POST, request.FILES, instance=record)
         if form.is_valid():
             form.save()
             return redirect('category_detail', slug=record.category.slug)

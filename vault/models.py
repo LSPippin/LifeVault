@@ -20,6 +20,7 @@ class Record(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     notes = models.TextField(blank=True)
+    document = models.FileField(upload_to='documents/',  blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

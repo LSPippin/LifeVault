@@ -10,7 +10,7 @@
 <div class="dashboard">
 
   <section class="dashboard__section">
-    <form method="POST" class="auth-form">
+<form method="POST" class="auth-form" enctype="multipart/form-data">
       {% csrf_token %}
 
       <div class="form-group">
@@ -28,6 +28,13 @@
           <span class="form-error">{{ error }}</span>
         {% endfor %}
       </div>
+<div class="form-group">
+        <label class="form-label" for="{{ form.document.id_for_label }}">Attach Document (optional)</label>
+        {{ form.document }}
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn--primary">Save Changes</button>
 
       <div class="form-group">
         <button type="submit" class="btn btn--primary">Save Changes</button>
