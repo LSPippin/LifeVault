@@ -662,3 +662,24 @@ img { max-width: 100%; display: block; }
   font-size: 0.85rem;
   color: var(--gray-400);
 }
+
+
+/* --- Record Item Footer --- */
+.record-item__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.record-item__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.record-item__notes {
+  font-size: 0.9rem;
+  color: var(--gray-500);
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
