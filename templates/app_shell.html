@@ -17,14 +17,13 @@
       <span class="nav-icon">⊞</span>
       <span>Dashboard</span>
     </a>
-    <div class="nav-section-label">Categories</div>
-    <a href="#" class="nav-item"><span class="nav-icon">🏥</span><span>Health</span></a>
-    <a href="#" class="nav-item"><span class="nav-icon">🛡️</span><span>Insurance</span></a>
-    <a href="#" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
-    <a href="#" class="nav-item"><span class="nav-icon">🚗</span><span>Vehicles</span></a>
-    <a href="#" class="nav-item"><span class="nav-icon">💰</span><span>Financial</span></a>
-    <a href="#" class="nav-item"><span class="nav-icon">🐾</span><span>Pets</span></a>
-    <a href="#" class="nav-item"><span class="nav-icon">🔧</span><span>Vendors</span></a>
+<div class="nav-section-label">Categories</div>
+    {% for category in nav_categories %}
+    <a href="{% url 'category_detail' category.slug %}" class="nav-item">
+      <span class="nav-icon">{{ category.icon }}</span>
+      <span>{{ category.name }}</span>
+    </a>
+    {% endfor %}
   </nav>
 
   <div class="sidebar__footer">
@@ -44,10 +43,10 @@
       {% block page_title %}<h1 class="page-title">Dashboard</h1>{% endblock %}
     </div>
     <div class="topbar__right">
-      <div class="search-bar">
+<form action="{% url 'search' %}" method="GET" class="search-bar">
         <span class="search-icon">⌕</span>
-        <input type="text" placeholder="Search everything..." class="search-input" />
-      </div>
+        <input type="text" name="q" placeholder="Search everything..." class="search-input" value="{{ request.GET.q }}" />
+      </form>
     </div>
   </header>
 

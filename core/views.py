@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from vault.models import Category, Record
 
 
@@ -21,3 +22,22 @@ def dashboard_view(request):
         'recent_records': recent_records,
     }
     return render(request, 'core/dashboard.html', context)
+
+
+@login_required
+def search_view(request):
+    query = request.GET.get('q', '')
+    results = []
+
+    if query:
+        results = Record.objects.filter(
+            user=request.user
+        ).filter(
+            Q(title__icontains=query) | Q(notes__icontains=query)
+        ).order_by('-created_at')
+
+    context = {
+        'query': query,
+        'results': results,
+    }
+    return render(request, 'core/search.html', context)

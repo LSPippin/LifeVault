@@ -38,3 +38,39 @@ def record_create(request, slug):
         'category': category,
     }
     return render(request, 'vault/record_create.html', context)
+
+
+@login_required
+def record_edit(request, pk):
+    record = get_object_or_404(Record, pk=pk, user=request.user)
+
+    if request.method == 'POST':
+        form = RecordForm(request.POST, instance=record)
+        if form.is_valid():
+            form.save()
+            return redirect('category_detail', slug=record.category.slug)
+    else:
+        form = RecordForm(instance=record)
+
+    context = {
+        'form': form,
+        'record': record,
+        'category': record.category,
+    }
+    return render(request, 'vault/record_edit.html', context)
+
+
+@login_required
+def record_delete(request, pk):
+    record = get_object_or_404(Record, pk=pk, user=request.user)
+
+    if request.method == 'POST':
+        slug = record.category.slug
+        record.delete()
+        return redirect('category_detail', slug=slug)
+
+    context = {
+        'record': record,
+        'category': record.category,
+    }
+    return render(request, 'vault/record_delete.html', context)

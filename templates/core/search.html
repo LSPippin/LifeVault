@@ -1,9 +1,9 @@
 {% extends "app_shell.html" %}
 
-{% block title %}{{ category.name }} — LifeVault{% endblock %}
+{% block title %}Search — LifeVault{% endblock %}
 
 {% block page_title %}
-<h1 class="page-title">{{ category.icon }} {{ category.name }}</h1>
+<h1 class="page-title">Search Results</h1>
 {% endblock %}
 
 {% block content %}
@@ -11,21 +11,27 @@
 
   <section class="dashboard__section">
     <div class="section-header">
-      <h3 class="section-title">Records</h3>
-      <a href="{% url 'record_create' category.slug %}" class="btn btn--primary">+ Add Record</a>
+      <h3 class="section-title">
+        {% if query %}
+          Results for "{{ query }}"
+        {% else %}
+          Enter a search term above
+        {% endif %}
+      </h3>
     </div>
 
-    {% if records %}
+    {% if results %}
     <div class="records-list">
-
-{% for record in records %}
+      {% for record in results %}
       <div class="record-item">
         <div class="record-item__title">{{ record.title }}</div>
         {% if record.notes %}
         <div class="record-item__notes">{{ record.notes }}</div>
         {% endif %}
         <div class="record-item__footer">
-          <div class="record-item__meta">Added {{ record.created_at|date:"M d, Y" }}</div>
+          <div class="record-item__meta">
+            {{ record.category.name }} · {{ record.created_at|date:"M d, Y" }}
+          </div>
           <div class="record-item__actions">
             <a href="{% url 'record_edit' record.pk %}" class="btn btn--ghost">Edit</a>
             <a href="{% url 'record_delete' record.pk %}" class="btn btn--ghost">Delete</a>
@@ -33,11 +39,12 @@
         </div>
       </div>
       {% endfor %}
-
+    </div>
+    {% elif query %}
     <div class="empty-state">
-      <div class="empty-state__icon">📋</div>
-      <h4>No records yet</h4>
-      <p>This category is empty. Add your first record.</p>
+      <div class="empty-state__icon">🔍</div>
+      <h4>No results found</h4>
+      <p>Nothing matched "{{ query }}". Try a different search term.</p>
     </div>
     {% endif %}
 
