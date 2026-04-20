@@ -24,6 +24,11 @@
         {% if record.notes %}
         <div class="record-item__notes">{{ record.notes }}</div>
         {% endif %}
+{% if record.document %}
+        <div class="record-item__document">
+          <a href="{{ record.document.url }}" target="_blank">📎 View Document</a>
+        </div>
+        {% endif %}
         <div class="record-item__footer">
           <div class="record-item__meta">Added {{ record.created_at|date:"M d, Y" }}</div>
           <div class="record-item__actions">

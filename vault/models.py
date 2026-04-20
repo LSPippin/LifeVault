@@ -21,6 +21,7 @@ class Record(models.Model):
     title = models.CharField(max_length=200)
     notes = models.TextField(blank=True)
     document = models.FileField(upload_to='documents/',  blank=True, null=True)
+    reminder_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

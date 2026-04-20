@@ -5,7 +5,7 @@ from .models import Record
 class RecordForm(forms.ModelForm):
     class Meta:
         model = Record
-        fields = ['title', 'notes', 'document']
+        fields = ['title', 'notes', 'document', 'reminder_date']
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'form-input',
@@ -15,5 +15,9 @@ class RecordForm(forms.ModelForm):
                 'class': 'form-input',
                 'placeholder': 'Add any notes here...',
                 'rows': 4,
+            }),
+            'reminder_date': forms.DateInput(attrs={
+                'class': 'form-input',
+                'type': 'date',
             }),
         }

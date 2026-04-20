@@ -7,9 +7,31 @@
 {% block content %}
 <div class="dashboard">
 
-  <div class="dashboard__welcome">
+<div class="dashboard__welcome">
     <h2>Welcome back, {{ request.user.first_name|default:request.user.username }} 👋</h2>
     <p>Here's an overview of your vault.</p>
+  </div>
+
+  <div class="dashboard__alerts">
+    {% if alerts %}
+      {% for alert in alerts %}
+      <div class="alert-item">
+        <span class="alert-item__icon">🔔</span>
+        <div class="alert-item__body">
+          <div class="alert-item__title">{{ alert.title }}</div>
+          <div class="alert-item__meta">
+            {{ alert.category.name }} · Due {{ alert.reminder_date|date:"M d, Y" }}
+          </div>
+        </div>
+        <a href="{% url 'record_edit' alert.pk %}" class="btn btn--ghost">View</a>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="alert-empty">
+        <span class="alert-empty__icon">🔔</span>
+        <span>No alerts right now — you're all caught up.</span>
+      </div>
+    {% endif %}
   </div>
 
   <section class="dashboard__section">

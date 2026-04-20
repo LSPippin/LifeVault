@@ -683,3 +683,53 @@ img { max-width: 100%; display: block; }
   margin-top: 4px;
   margin-bottom: 4px;
 }
+
+/* --- Document Link --- */
+.record-item__document {
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.record-item__document a {
+  font-size: 0.875rem;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.record-item__document a:hover {
+  text-decoration: underline;
+}
+
+
+/* --- Alert Items --- */
+.alert-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--warning-bg);
+  border: 1.5px solid var(--warning);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+}
+
+.alert-item__icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.alert-item__body {
+  flex: 1;
+}
+
+.alert-item__title {
+  font-weight: 500;
+  color: var(--gray-800);
+  font-size: 0.95rem;
+}
+
+.alert-item__meta {
+  font-size: 0.82rem;
+  color: var(--warning);
+  margin-top: 2px;
+}

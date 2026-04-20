@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.utils import timezone
 from vault.models import Category, Record
 
 
@@ -17,9 +18,18 @@ def dashboard_view(request):
         user=request.user
     ).order_by('-created_at')[:5]
 
+    today = timezone.now().date()
+    alerts = Record.objects.filter(
+        user=request.user,
+        reminder_date__isnull=False,
+        reminder_date__lte=today
+    ).order_by('reminder_date')
+
     context = {
         'categories': categories,
         'recent_records': recent_records,
+        'alerts': alerts,
+        'today': today,
     }
     return render(request, 'core/dashboard.html', context)
 
