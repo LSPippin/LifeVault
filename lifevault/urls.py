@@ -9,5 +9,6 @@ urlpatterns = [
     path('vault/', include('vault.urls')),   
     path('pets/', include('pets.urls')),
     path('vehicles/', include('vehicles.urls')),
+    path('profile/', include('userprofile.urls')),
     path('', include('core.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

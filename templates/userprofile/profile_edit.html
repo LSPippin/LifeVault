@@ -1,0 +1,87 @@
+{% extends "app_shell.html" %}
+
+{% block title %}Edit Profile — LifeVault{% endblock %}
+
+{% block page_title %}<h1 class="page-title">Edit Profile</h1>{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+  <section class="dashboard__section">
+    <form method="POST" class="auth-form">
+      {% csrf_token %}
+
+      <h3 class="section-title" style="margin-bottom: 16px;">Personal Information</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          {{ user_form.first_name }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          {{ user_form.last_name }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        {{ user_form.email }}
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        {{ profile_form.phone }}
+      </div>
+
+      <h3 class="section-title" style="margin-top: 24px; margin-bottom: 16px;">Address</h3>
+      <div class="form-group">
+        <label class="form-label">Street Address</label>
+        {{ profile_form.street }}
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">City</label>
+          {{ profile_form.city }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">State</label>
+          {{ profile_form.state }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Zip Code</label>
+        {{ profile_form.zip_code }}
+      </div>
+
+      <h3 class="section-title" style="margin-top: 24px; margin-bottom: 16px;">Identification</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Social Security #</label>
+          {{ profile_form.social_security }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">Passport #</label>
+          {{ profile_form.passport_number }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Driver's License #</label>
+          {{ profile_form.drivers_license }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">TSA PreCheck #</label>
+          {{ profile_form.tsa_precheck }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        {{ profile_form.notes }}
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn--primary">Save Profile</button>
+        <a href="{% url 'profile' %}" class="btn btn--ghost">Cancel</a>
+      </div>
+    </form>
+  </section>
+</div>
+{% endblock %}

@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'vault',
     'pets',
     'vehicles',
+    'userprofile',
 ]
 
 MIDDLEWARE = [

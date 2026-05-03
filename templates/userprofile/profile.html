@@ -1,0 +1,86 @@
+{% extends "app_shell.html" %}
+
+{% block title %}My Profile — LifeVault{% endblock %}
+
+{% block page_title %}<h1 class="page-title">My Profile</h1>{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+  <section class="dashboard__section">
+    <div class="section-header">
+      <h3 class="section-title">👤 {{ request.user.get_full_name|default:request.user.username }}</h3>
+      <a href="{% url 'profile_edit' %}" class="btn btn--primary">Edit Profile</a>
+    </div>
+
+    <div class="pet-profile">
+      <div class="pet-info-grid">
+        <div class="pet-info-item">
+          <span class="pet-info-label">Username</span>
+          <span class="pet-info-value">{{ request.user.username }}</span>
+        </div>
+        <div class="pet-info-item">
+          <span class="pet-info-label">Email</span>
+          <span class="pet-info-value">{{ request.user.email|default:"Not set" }}</span>
+        </div>
+        {% if profile.phone %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Phone</span>
+          <span class="pet-info-value">{{ profile.phone }}</span>
+        </div>
+        {% endif %}
+{% if profile.street %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Street</span>
+          <span class="pet-info-value">{{ profile.street }}</span>
+        </div>
+        {% endif %}
+        {% if profile.city %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">City</span>
+          <span class="pet-info-value">{{ profile.city }}</span>
+        </div>
+        {% endif %}
+        {% if profile.state %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">State</span>
+          <span class="pet-info-value">{{ profile.state }}</span>
+        </div>
+        {% endif %}
+        {% if profile.zip_code %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Zip Code</span>
+          <span class="pet-info-value">{{ profile.zip_code }}</span>
+        </div>
+        {% endif %}
+        {% if profile.social_security %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Social Security #</span>
+          <span class="pet-info-value">{{ profile.social_security }}</span>
+        </div>
+        {% endif %}
+        {% if profile.passport_number %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Passport #</span>
+          <span class="pet-info-value">{{ profile.passport_number }}</span>
+        </div>
+        {% endif %}
+        {% if profile.drivers_license %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Driver's License #</span>
+          <span class="pet-info-value">{{ profile.drivers_license }}</span>
+        </div>
+        {% endif %}
+        {% if profile.tsa_precheck %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">TSA PreCheck #</span>
+          <span class="pet-info-value">{{ profile.tsa_precheck }}</span>
+        </div>
+        {% endif %}
+      </div>
+      {% if profile.notes %}
+      <p style="margin-top: 16px; color: var(--gray-500);">{{ profile.notes }}</p>
+      {% endif %}
+    </div>
+  </section>
+</div>
+{% endblock %}

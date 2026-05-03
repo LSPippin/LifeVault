@@ -17,6 +17,13 @@
       <span class="nav-icon">⊞</span>
       <span>Dashboard</span>
     </a>
+
+<a href="{% url 'profile' %}" class="nav-item">
+  <span class="nav-icon">👤</span>
+  <span>My Profile</span>
+</a>
+<div class="nav-section-label">Categories</div>
+
 <div class="nav-section-label">Categories</div>
 {% for category in nav_categories %}
     {% if category.slug == 'pets' %}
@@ -37,13 +44,13 @@
     {% endif %}
     {% endfor %}
   </nav>
-
-  <div class="sidebar__footer">
+<div class="sidebar__footer">
     <div class="user-info">
       <div class="user-avatar">{{ request.user.first_name|first|upper }}{{ request.user.last_name|first|upper }}</div>
       <div class="user-details">
         <span class="user-name">{{ request.user.get_full_name|default:request.user.username }}</span>
         <a href="{% url 'logout' %}" class="sign-out-link">Sign out</a>
+
       </div>
     </div>
   </div>
