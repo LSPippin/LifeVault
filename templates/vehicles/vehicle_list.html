@@ -1,0 +1,37 @@
+{% extends "app_shell.html" %}
+
+{% block title %}My Vehicles — LifeVault{% endblock %}
+
+{% block page_title %}<h1 class="page-title">🚗 My Vehicles</h1>{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+  <section class="dashboard__section">
+    <div class="section-header">
+      <h3 class="section-title">Your Vehicles</h3>
+      <a href="{% url 'vehicle_create' %}" class="btn btn--primary">+ Add Vehicle</a>
+    </div>
+
+    {% if vehicles %}
+    <div class="category-grid">
+      {% for vehicle in vehicles %}
+      <a href="{% url 'vehicle_detail' vehicle.pk %}" class="category-card">
+        <div class="category-card__icon">🚗</div>
+        <div class="category-card__body">
+          <div class="category-card__name">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</div>
+          {% if vehicle.vin %}<div class="category-card__count">VIN: {{ vehicle.vin }}</div>{% endif %}
+        </div>
+        <div class="category-card__arrow">→</div>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state__icon">🚗</div>
+      <h4>No vehicles yet</h4>
+      <p>Add your first vehicle to get started.</p>
+    </div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

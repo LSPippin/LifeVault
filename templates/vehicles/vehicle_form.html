@@ -1,0 +1,81 @@
+{% extends "app_shell.html" %}
+
+{% block title %}{{ title }} — LifeVault{% endblock %}
+
+{% block page_title %}<h1 class="page-title">{{ title }}</h1>{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+  <section class="dashboard__section">
+    <form method="POST" class="auth-form" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <h3 class="section-title" style="margin-bottom: 16px;">Vehicle Information</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Year</label>
+          {{ form.year }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">Make</label>
+          {{ form.make }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Model</label>
+          {{ form.model }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">VIN</label>
+          {{ form.vin }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Purchase Date</label>
+          {{ form.purchase_date }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">Purchase Price</label>
+          {{ form.purchase_price }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Photo</label>
+        {{ form.photo }}
+      </div>
+
+      <h3 class="section-title" style="margin-top: 24px; margin-bottom: 16px;">Registration & Insurance</h3>
+      <div class="form-group">
+        <label class="form-label">Registration Expiry</label>
+        {{ form.registration_expiry }}
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Insurance Provider</label>
+          {{ form.insurance_provider }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">Policy Number</label>
+          {{ form.insurance_policy }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Insurance Expiry</label>
+        {{ form.insurance_expiry }}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        {{ form.notes }}
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn--primary">Save Vehicle</button>
+        <a href="{% url 'vehicle_list' %}" class="btn btn--ghost">Cancel</a>
+      </div>
+    </form>
+  </section>
+</div>
+{% endblock %}

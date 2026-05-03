@@ -1,0 +1,137 @@
+{% extends "app_shell.html" %}
+
+{% block title %}{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }} — LifeVault{% endblock %}
+
+{% block page_title %}<h1 class="page-title">Vehicles</h1>{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+
+  <!-- Vehicle Profile -->
+  <section class="dashboard__section">
+<div class="section-header">
+      <h3 class="section-title">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</h3>
+      <div>
+        <a href="{% url 'vehicle_edit' vehicle.pk %}" class="btn btn--ghost">Edit</a>
+        <a href="{% url 'vehicle_delete' vehicle.pk %}" class="btn btn--ghost">Delete</a>
+      </div>
+    </div>
+    <div class="pet-profile">
+      {% if vehicle.photo %}
+      <img src="{{ vehicle.photo.url }}" alt="{{ vehicle.make }}" class="pet-photo">
+      {% endif %}
+      <div class="pet-info-grid">
+        {% if vehicle.vin %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">VIN</span>
+          <span class="pet-info-value">{{ vehicle.vin }}</span>
+        </div>
+        {% endif %}
+        {% if vehicle.purchase_date %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Purchase Date</span>
+          <span class="pet-info-value">{{ vehicle.purchase_date|date:"M d, Y" }}</span>
+        </div>
+        {% endif %}
+        {% if vehicle.purchase_price %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Purchase Price</span>
+          <span class="pet-info-value">${{ vehicle.purchase_price }}</span>
+        </div>
+        {% endif %}
+        {% if vehicle.registration_expiry %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Registration Expiry</span>
+          <span class="pet-info-value">{{ vehicle.registration_expiry|date:"M d, Y" }}</span>
+        </div>
+        {% endif %}
+        {% if vehicle.insurance_provider %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Insurance Provider</span>
+          <span class="pet-info-value">{{ vehicle.insurance_provider }}</span>
+        </div>
+        {% endif %}
+        {% if vehicle.insurance_policy %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Policy Number</span>
+          <span class="pet-info-value">{{ vehicle.insurance_policy }}</span>
+        </div>
+        {% endif %}
+        {% if vehicle.insurance_expiry %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Insurance Expiry</span>
+          <span class="pet-info-value">{{ vehicle.insurance_expiry|date:"M d, Y" }}</span>
+        </div>
+        {% endif %}
+      </div>
+      {% if vehicle.notes %}
+      <p style="margin-top:16px; color: var(--gray-500);">{{ vehicle.notes }}</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- Maintenance -->
+  <section class="dashboard__section">
+    <div class="section-header">
+      <h3 class="section-title">Maintenance Records</h3>
+      <a href="{% url 'maintenance_create' vehicle.pk %}" class="btn btn--primary">+ Add</a>
+    </div>
+    {% if maintenance %}
+    <div class="records-list">
+      {% for record in maintenance %}
+      <div class="record-item">
+        <div class="record-item__title">{{ record.description }}</div>
+        <div class="record-item__meta">
+          {{ record.date|date:"M d, Y" }}
+          {% if record.location %} · {{ record.location }}{% endif %}
+          {% if record.price %} · ${{ record.price }}{% endif %}
+        </div>
+        {% if record.notes %}<div class="record-item__notes">{{ record.notes }}</div>{% endif %}
+        {% if record.document %}
+        <div class="record-item__document">
+          <a href="{{ record.document.url }}" target="_blank">📎 View Document</a>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state__icon">🔧</div>
+      <h4>No maintenance records yet</h4>
+    </div>
+    {% endif %}
+  </section>
+
+  <!-- Oil Changes -->
+  <section class="dashboard__section">
+    <div class="section-header">
+      <h3 class="section-title">Oil Change History</h3>
+      <a href="{% url 'oilchange_create' vehicle.pk %}" class="btn btn--primary">+ Add</a>
+    </div>
+    {% if oil_changes %}
+    <div class="records-list">
+      {% for oil in oil_changes %}
+      <div class="record-item">
+        <div class="record-item__title">Oil Change — {{ oil.date|date:"M d, Y" }}</div>
+        <div class="record-item__meta">
+          {% if oil.mileage %}{{ oil.mileage }} miles{% endif %}
+          {% if oil.location %} · {{ oil.location }}{% endif %}
+          {% if oil.price %} · ${{ oil.price }}{% endif %}
+        </div>
+        {% if oil.next_due_mileage %}
+        <div class="record-item__notes">Next due: {{ oil.next_due_mileage }} miles</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state__icon">🛢️</div>
+      <h4>No oil change records yet</h4>
+    </div>
+    {% endif %}
+  </section>
+
+</div>
+{% endblock %}

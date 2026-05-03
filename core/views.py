@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.utils import timezone
 from vault.models import Category, Record
 from pets.models import Pet
+from vehicles.models import Vehicle
 
 
 def landing_view(request):
@@ -27,6 +28,7 @@ def dashboard_view(request):
     ).order_by('reminder_date')
 
     pet_count = Pet.objects.filter(user=request.user).count()
+    vehicle_count = Vehicle.objects.filter(user=request.user).count()
 
     context = {
         'categories': categories,
@@ -34,6 +36,7 @@ def dashboard_view(request):
         'alerts': alerts,
         'today': today,
         'pet_count': pet_count,
+        'vehicle_count': vehicle_count,
     }
     return render(request, 'core/dashboard.html', context)
 

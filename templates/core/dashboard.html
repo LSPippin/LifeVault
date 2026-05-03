@@ -49,6 +49,17 @@
         </div>
         <div class="category-card__arrow">→</div>
       </a>
+
+{% elif category.slug == 'vehicles' %}
+      <a href="{% url 'vehicle_list' %}" class="category-card">
+        <div class="category-card__icon">{{ category.icon }}</div>
+        <div class="category-card__body">
+          <div class="category-card__name">{{ category.name }}</div>
+          <div class="category-card__count">{{ vehicle_count }} vehicle{{ vehicle_count|pluralize }}</div>
+        </div>
+        <div class="category-card__arrow">→</div>
+      </a>
+
       {% else %}
       <a href="{% url 'category_detail' category.slug %}" class="category-card">
         <div class="category-card__icon">{{ category.icon }}</div>

@@ -785,3 +785,18 @@ img { max-width: 100%; display: block; }
 }
 
 
+/* --- Form Row --- */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+
+/* --- Profile Section Title --- */
+.dashboard__section .section-header .section-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gray-800);
+}
+

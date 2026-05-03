@@ -2,7 +2,7 @@
 
 {% block title %}{{ pet.name }} — LifeVault{% endblock %}
 
-{% block page_title %}<h1 class="page-title">🐾 {{ pet.name }}</h1>{% endblock %}
+{% block page_title %}<h1 class="page-title">Pets</h1>{% endblock %}
 
 {% block content %}
 <div class="dashboard">
@@ -10,7 +10,7 @@
   <!-- Pet Profile -->
   <section class="dashboard__section">
     <div class="section-header">
-      <h3 class="section-title">Profile</h3>
+      <h3 class="section-title">{{ pet.name }}</h3>
       <div>
         <a href="{% url 'pet_edit' pet.pk %}" class="btn btn--ghost">Edit</a>
         <a href="{% url 'pet_delete' pet.pk %}" class="btn btn--ghost">Delete</a>
