@@ -20,7 +20,36 @@
       </h3>
     </div>
 
+    {% if pet_results %}
+    <h4 style="color: var(--primary); margin-bottom: 10px;">Pets</h4>
+    <div class="records-list" style="margin-bottom: 20px;">
+      {% for pet in pet_results %}
+      <a href="{% url 'pet_detail' pet.pk %}" style="text-decoration: none;">
+        <div class="record-item">
+          <div class="record-item__title">🐾 {{ pet.name }}</div>
+          <div class="record-item__meta">{{ pet.species }}{% if pet.breed %} · {{ pet.breed }}{% endif %}</div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if vehicle_results %}
+    <h4 style="color: var(--primary); margin-bottom: 10px;">Vehicles</h4>
+    <div class="records-list" style="margin-bottom: 20px;">
+      {% for vehicle in vehicle_results %}
+      <a href="{% url 'vehicle_detail' vehicle.pk %}" style="text-decoration: none;">
+        <div class="record-item">
+          <div class="record-item__title">🚗 {{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</div>
+          {% if vehicle.vin %}<div class="record-item__meta">VIN: {{ vehicle.vin }}</div>{% endif %}
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
     {% if results %}
+    <h4 style="color: var(--primary); margin-bottom: 10px;">Records</h4>
     <div class="records-list">
       {% for record in results %}
       <div class="record-item">
@@ -40,7 +69,9 @@
       </div>
       {% endfor %}
     </div>
-    {% elif query %}
+    {% endif %}
+
+    {% if query and not results and not pet_results and not vehicle_results %}
     <div class="empty-state">
       <div class="empty-state__icon">🔍</div>
       <h4>No results found</h4>
