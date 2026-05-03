@@ -1,0 +1,46 @@
+{% extends "app_shell.html" %}
+
+{% block title %}My Pets — LifeVault{% endblock %}
+
+{% block page_title %}<h1 class="page-title">🐾 My Pets</h1>{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+
+  <section class="dashboard__section">
+    <div class="section-header">
+      <h3 class="section-title">Your Pets</h3>
+      <a href="{% url 'pet_create' %}" class="btn btn--primary">+ Add Pet</a>
+    </div>
+
+    {% if pets %}
+    <div class="category-grid">
+      {% for pet in pets %}
+      <a href="{% url 'pet_detail' pet.pk %}" class="category-card">
+        <div class="category-card__icon">
+          {% if pet.photo %}
+            <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+          {% else %}
+            🐾
+          {% endif %}
+        </div>
+        <div class="category-card__body">
+          <div class="category-card__name">{{ pet.name }}</div>
+          <div class="category-card__count">{{ pet.species }}{% if pet.breed %} · {{ pet.breed }}{% endif %}</div>
+        </div>
+        <div class="category-card__arrow">→</div>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state__icon">🐾</div>
+      <h4>No pets yet</h4>
+      <p>Add your first pet to get started.</p>
+    </div>
+    {% endif %}
+
+  </section>
+
+</div>
+{% endblock %}

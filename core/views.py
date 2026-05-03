@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.utils import timezone
 from vault.models import Category, Record
+from pets.models import Pet
 
 
 def landing_view(request):
@@ -25,11 +26,14 @@ def dashboard_view(request):
         reminder_date__lte=today
     ).order_by('reminder_date')
 
+    pet_count = Pet.objects.filter(user=request.user).count()
+
     context = {
         'categories': categories,
         'recent_records': recent_records,
         'alerts': alerts,
         'today': today,
+        'pet_count': pet_count,
     }
     return render(request, 'core/dashboard.html', context)
 

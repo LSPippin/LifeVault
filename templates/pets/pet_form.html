@@ -1,0 +1,97 @@
+{% extends "app_shell.html" %}
+
+{% block title %}{{ title }} — LifeVault{% endblock %}
+
+{% block page_title %}<h1 class="page-title">{{ title }}</h1>{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+  <section class="dashboard__section">
+    <form method="POST" class="auth-form" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <h3 class="section-title" style="margin-bottom: 16px;">Basic Information</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          {{ form.name }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">Species</label>
+          {{ form.species }}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Breed</label>
+          {{ form.breed }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date of Birth</label>
+          {{ form.date_of_birth }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Microchip Number</label>
+        {{ form.microchip_number }}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Photo</label>
+        {{ form.photo }}
+      </div>
+
+      <h3 class="section-title" style="margin-top: 24px; margin-bottom: 16px;">Breeder Information</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Breeder Name</label>
+          {{ form.breeder_name }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">Breeder Phone</label>
+          {{ form.breeder_phone }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Breeder Email</label>
+        {{ form.breeder_email }}
+      </div>
+
+      <h3 class="section-title" style="margin-top: 24px; margin-bottom: 16px;">Vet Information</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Vet Name</label>
+          {{ form.vet_name }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">Vet Phone</label>
+          {{ form.vet_phone }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Vet Email</label>
+        {{ form.vet_email }}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        {{ form.notes }}
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn--primary">Save Pet</button>
+        <a href="{% url 'pet_list' %}" class="btn btn--ghost">Cancel</a>
+      </div>
+
+    </form>
+  </section>
+</div>
+{% endblock %}
+

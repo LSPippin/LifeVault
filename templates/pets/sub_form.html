@@ -1,0 +1,31 @@
+{% extends "app_shell.html" %}
+
+{% block title %}{{ title }} — LifeVault{% endblock %}
+
+{% block page_title %}<h1 class="page-title">{{ title }}</h1>{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+  <section class="dashboard__section">
+    <form method="POST" class="auth-form" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {% for field in form %}
+      <div class="form-group">
+        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% for error in field.errors %}
+          <span class="form-error">{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endfor %}
+
+      <div class="form-group">
+        <button type="submit" class="btn btn--primary">Save</button>
+        <a href="{% url 'pet_detail' pet.pk %}" class="btn btn--ghost">Cancel</a>
+      </div>
+
+    </form>
+  </section>
+</div>
+{% endblock %}

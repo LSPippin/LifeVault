@@ -18,11 +18,18 @@
       <span>Dashboard</span>
     </a>
 <div class="nav-section-label">Categories</div>
-    {% for category in nav_categories %}
+{% for category in nav_categories %}
+    {% if category.slug == 'pets' %}
+    <a href="{% url 'pet_list' %}" class="nav-item">
+      <span class="nav-icon">{{ category.icon }}</span>
+      <span>{{ category.name }}</span>
+    </a>
+    {% else %}
     <a href="{% url 'category_detail' category.slug %}" class="nav-item">
       <span class="nav-icon">{{ category.icon }}</span>
       <span>{{ category.name }}</span>
     </a>
+    {% endif %}
     {% endfor %}
   </nav>
 

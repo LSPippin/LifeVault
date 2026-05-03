@@ -1,0 +1,173 @@
+{% extends "app_shell.html" %}
+
+{% block title %}{{ pet.name }} — LifeVault{% endblock %}
+
+{% block page_title %}<h1 class="page-title">🐾 {{ pet.name }}</h1>{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+
+  <!-- Pet Profile -->
+  <section class="dashboard__section">
+    <div class="section-header">
+      <h3 class="section-title">Profile</h3>
+      <div>
+        <a href="{% url 'pet_edit' pet.pk %}" class="btn btn--ghost">Edit</a>
+        <a href="{% url 'pet_delete' pet.pk %}" class="btn btn--ghost">Delete</a>
+      </div>
+    </div>
+
+    <div class="pet-profile">
+      {% if pet.photo %}
+      <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" class="pet-photo">
+      {% endif %}
+<div class="pet-info-grid">
+        {% if pet.species %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Species</span>
+          <span class="pet-info-value">{{ pet.species }}</span>
+        </div>
+        {% endif %}
+        {% if pet.breed %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Breed</span>
+          <span class="pet-info-value">{{ pet.breed }}</span>
+        </div>
+        {% endif %}
+        {% if pet.date_of_birth %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Date of Birth</span>
+          <span class="pet-info-value">{{ pet.date_of_birth|date:"M d, Y" }}</span>
+        </div>
+        {% endif %}
+        {% if pet.microchip_number %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Microchip #</span>
+          <span class="pet-info-value">{{ pet.microchip_number }}</span>
+        </div>
+        {% endif %}
+        {% if pet.vet_name %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Vet</span>
+          <span class="pet-info-value">{{ pet.vet_name }}</span>
+        </div>
+        {% endif %}
+        {% if pet.vet_phone %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Vet Phone</span>
+          <span class="pet-info-value">{{ pet.vet_phone }}</span>
+        </div>
+        {% endif %}
+        {% if pet.vet_email %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Vet Email</span>
+          <span class="pet-info-value">{{ pet.vet_email }}</span>
+        </div>
+        {% endif %}
+        {% if pet.breeder_name %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Breeder</span>
+          <span class="pet-info-value">{{ pet.breeder_name }}</span>
+        </div>
+        {% endif %}
+        {% if pet.breeder_phone %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Breeder Phone</span>
+          <span class="pet-info-value">{{ pet.breeder_phone }}</span>
+        </div>
+        {% endif %}
+        {% if pet.breeder_email %}
+        <div class="pet-info-item">
+          <span class="pet-info-label">Breeder Email</span>
+          <span class="pet-info-value">{{ pet.breeder_email }}</span>
+        </div>
+        {% endif %}
+      </div>
+      {% if pet.notes %}<p style="margin-top:16px; color: var(--gray-500);">{{ pet.notes }}</p>{% endif %}
+    </div>
+  </section>
+
+  <!-- Appointments -->
+  <section class="dashboard__section">
+    <div class="section-header">
+      <h3 class="section-title">Appointments</h3>
+      <a href="{% url 'appointment_create' pet.pk %}" class="btn btn--primary">+ Add</a>
+    </div>
+    {% if appointments %}
+    <div class="records-list">
+      {% for apt in appointments %}
+      <div class="record-item">
+        <div class="record-item__title">{{ apt.title }}</div>
+        <div class="record-item__meta">{{ apt.date|date:"M d, Y" }}{% if apt.location %} · {{ apt.location }}{% endif %}</div>
+        {% if apt.notes %}<div class="record-item__notes">{{ apt.notes }}</div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state__icon">📅</div>
+      <h4>No appointments yet</h4>
+    </div>
+    {% endif %}
+  </section>
+
+  <!-- Medications -->
+  <section class="dashboard__section">
+    <div class="section-header">
+      <h3 class="section-title">Medications</h3>
+      <a href="{% url 'medication_create' pet.pk %}" class="btn btn--primary">+ Add</a>
+    </div>
+    {% if medications %}
+    <div class="records-list">
+      {% for med in medications %}
+      <div class="record-item">
+        <div class="record-item__title">{{ med.name }}</div>
+        <div class="record-item__meta">
+          {% if med.dosage %}{{ med.dosage }}{% endif %}
+          {% if med.frequency %} · {{ med.frequency }}{% endif %}
+        </div>
+        {% if med.notes %}<div class="record-item__notes">{{ med.notes }}</div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state__icon">💊</div>
+      <h4>No medications yet</h4>
+    </div>
+    {% endif %}
+  </section>
+
+  <!-- Vaccines -->
+  <section class="dashboard__section">
+    <div class="section-header">
+      <h3 class="section-title">Vaccine Records</h3>
+      <a href="{% url 'vaccine_create' pet.pk %}" class="btn btn--primary">+ Add</a>
+    </div>
+    {% if vaccines %}
+    <div class="records-list">
+      {% for vac in vaccines %}
+      <div class="record-item">
+        <div class="record-item__title">{{ vac.name }}</div>
+        <div class="record-item__meta">
+          {% if vac.date_given %}Given: {{ vac.date_given|date:"M d, Y" }}{% endif %}
+          {% if vac.expiry_date %} · Expires: {{ vac.expiry_date|date:"M d, Y" }}{% endif %}
+        </div>
+        {% if vac.document %}
+        <div class="record-item__document">
+          <a href="{{ vac.document.url }}" target="_blank">📎 View Document</a>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-state__icon">💉</div>
+      <h4>No vaccine records yet</h4>
+    </div>
+    {% endif %}
+  </section>
+
+</div>
+{% endblock %}

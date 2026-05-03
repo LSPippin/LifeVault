@@ -22,7 +22,8 @@ INSTALLED_APPS = [
     # Local apps
     'accounts',
     'core',
-    'vault'
+    'vault',
+    'pets',
 ]
 
 MIDDLEWARE = [

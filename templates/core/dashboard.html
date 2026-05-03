@@ -39,7 +39,17 @@
       <h3 class="section-title">Your Categories</h3>
     </div>
     <div class="category-grid">
-      {% for category in categories %}
+{% for category in categories %}
+      {% if category.slug == 'pets' %}
+      <a href="{% url 'pet_list' %}" class="category-card">
+        <div class="category-card__icon">{{ category.icon }}</div>
+        <div class="category-card__body">
+          <div class="category-card__name">{{ category.name }}</div>
+          <div class="category-card__count">{{ pet_count }} pet{{ pet_count|pluralize }}</div>
+        </div>
+        <div class="category-card__arrow">→</div>
+      </a>
+      {% else %}
       <a href="{% url 'category_detail' category.slug %}" class="category-card">
         <div class="category-card__icon">{{ category.icon }}</div>
         <div class="category-card__body">
@@ -50,8 +60,7 @@
         </div>
         <div class="category-card__arrow">→</div>
       </a>
-      {% empty %}
-      <p>No categories yet. Add one from the admin panel.</p>
+      {% endif %}
       {% endfor %}
     </div>
   </section>
